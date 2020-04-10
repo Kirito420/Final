@@ -8,6 +8,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -57,18 +58,36 @@ public class RestTimerActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();    //Call the back button's method
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     public void setTitle(String title){
-        getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        TextView textView = new TextView(this);
-        textView.setText(title);
-        textView.setTextSize(20);
-        textView.setTypeface(null, Typeface.BOLD);
-        textView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        textView.setGravity(Gravity.CENTER);
-        textView.setTextColor(getResources().getColor(R.color.titleColor));
-        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(textView);
+        getSupportActionBar().setLogo(R.mipmap.ic_launcher); //@drawable/on_day_icon
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.back_arrow);
+
+        View view = getLayoutInflater().inflate(R.layout.action_bar, null);
+        ActionBar.LayoutParams params = new ActionBar.LayoutParams(
+                ActionBar.LayoutParams.WRAP_CONTENT,
+                ActionBar.LayoutParams.MATCH_PARENT,
+                Gravity.CENTER);
+
+        TextView Title = (TextView) view.findViewById(R.id.actionbar_title);
+        Title.setText(title);
+
+        getSupportActionBar().setCustomView(view,params);
+        getSupportActionBar().setDisplayShowCustomEnabled(true); //show custom title
+        getSupportActionBar().setDisplayShowTitleEnabled(false); //hide the default title
+        Title.setTextSize(20);
+        Title.setTextColor(getResources().getColor(R.color.titleColor));
     }
 
     @Override
@@ -79,9 +98,11 @@ public class RestTimerActivity extends AppCompatActivity {
         if(!boolFinished)
             boolTimer = true;
 
+        //Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713
+        //Real AdMob App ID: ca-app-pub-3137351105878660~5901616023
 
         AdView adView;
-        MobileAds.initialize(this, "ca-app-pub-3137351105878660~5901616023"); //replace with real appID, spremen bannerID(iz admob ad unit) v xmlu, in v manifestu
+        MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713"); //replace with real appID, spremen bannerID(iz admob ad unit) v xmlu, in v manifestu
         adView = (AdView)findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);
@@ -102,6 +123,9 @@ public class RestTimerActivity extends AppCompatActivity {
         setTitle("Rest");
         setContentView(R.layout.activity_rest_timer);
         boolTimer = true;
+
+        //Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713
+        //Real AdMob App ID: ca-app-pub-3137351105878660~5901616023
 
         AdView adView;
         MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713"); //replace with real appID, spremen bannerID(iz admob ad unit) v xmlu, in v manifestu

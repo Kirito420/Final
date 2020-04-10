@@ -8,6 +8,8 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.MenuItem;
+import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.LinearLayout;
@@ -23,18 +25,36 @@ public class GifInstructionsActivity extends AppCompatActivity {
     String text;
     String text4;
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();    //Call the back button's method
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     public void setTitle(String title) {
-        getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        TextView textView = new TextView(this);
-        textView.setText(title);
-        textView.setTextSize(20);
-        textView.setTypeface(null, Typeface.BOLD);
-        textView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        textView.setGravity(Gravity.CENTER);
-        textView.setTextColor(getResources().getColor(R.color.titleColor));
-        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(textView);
+        getSupportActionBar().setLogo(R.mipmap.ic_launcher); //@drawable/on_day_icon
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.back_arrow);
+
+        View view = getLayoutInflater().inflate(R.layout.action_bar, null);
+        ActionBar.LayoutParams params = new ActionBar.LayoutParams(
+                ActionBar.LayoutParams.WRAP_CONTENT,
+                ActionBar.LayoutParams.MATCH_PARENT,
+                Gravity.CENTER);
+
+        TextView Title = (TextView) view.findViewById(R.id.actionbar_title);
+        Title.setText(title);
+
+        getSupportActionBar().setCustomView(view,params);
+        getSupportActionBar().setDisplayShowCustomEnabled(true); //show custom title
+        getSupportActionBar().setDisplayShowTitleEnabled(false); //hide the default title
+        Title.setTextSize(20);
+        Title.setTextColor(getResources().getColor(R.color.titleColor));
     }
 
     @Override
@@ -68,9 +88,9 @@ public class GifInstructionsActivity extends AppCompatActivity {
                     webView.loadUrl(file); //ne dela na api 18
                     textView = findViewById(R.id.instructionsTextView);
                     if(Build.VERSION.SDK_INT > 20)
-                        text = "▸ hands shoulder width apart\n▸ squeeze your butt and abs\n▸ chin above bar\n▸ exhale on the way up\n▸ go to the next exercise only \n  when you complete all the \n  repetitions of this one";
+                        text = "▸ hands shoulder width apart\n▸ squeeze your butt and abs\n▸ chin above bar\n▸ exhale on the way up\n▸ go to the next exercise only when you complete all the repetitions of this one";
                     else
-                        text = "- hands shoulder width apart\n- squeeze your butt and abs\n- chin above bar\n- exhale on the way up\n- go to the next exercise only \n  when you complete all the \n  repetitions of this one";
+                        text = "- hands shoulder width apart\n- squeeze your butt and abs\n- chin above bar\n- exhale on the way up\n- go to the next exercise only when you complete all the repetitions of this one";
                     textView.setText(text);
                     break;
                 case ("pushup"):
@@ -78,9 +98,9 @@ public class GifInstructionsActivity extends AppCompatActivity {
                     webView.loadUrl(file2);
                     textView = findViewById(R.id.instructionsTextView);
                     if(Build.VERSION.SDK_INT > 20)
-                        text2 = "▸ fully extend your elbows\n▸ hands below shoulders\n▸ squeeze your butt and abs\n▸ exhale on the way up\n▸ go to the next exercise only \n  when you complete all the \n  repetitions of this one";
+                        text2 = "▸ fully extend your elbows\n▸ hands below shoulders\n▸ squeeze your butt and abs\n▸ exhale on the way up\n▸ go to the next exercise only when you complete all the repetitions of this one";
                     else
-                        text2 = "- fully extend your elbows\n- hands below shoulders\n- squeeze your butt and abs\n- exhale on the way up\n- go to the next exercise only \n  when you complete all the \n  repetitions of this one";
+                        text2 = "- fully extend your elbows\n- hands below shoulders\n- squeeze your butt and abs\n- exhale on the way up\n- go to the next exercise only when you complete all the repetitions of this one";
                     textView.setText(text2);
                     break;
                 case ("squat"):
@@ -88,9 +108,9 @@ public class GifInstructionsActivity extends AppCompatActivity {
                     webView.loadUrl(file3);
                     textView = findViewById(R.id.instructionsTextView);
                     if(Build.VERSION.SDK_INT > 20)
-                        text3 = "▸ keep your back straight\n▸ don't let your knees past\n  your toes\n▸ squeeze your butt when you\n  come up\n▸ exhale on the way up\n▸ go to the next exercise only \n  when you complete all the \n  repetitions of this one";
+                        text3 = "▸ keep your back straight\n▸ don't let your knees past your toes\n▸ squeeze your butt when you come up\n▸ exhale on the way up\n▸ go to the next exercise only when you complete all the repetitions of this one";
                     else
-                        text3 = "- keep your back straight\n- don't let your knees past\n  your toes\n- squeeze your butt when you\n  come up\n- exhale on the way up\n- go to the next exercise only \n  when you complete all the \n  repetitions of this one";
+                        text3 = "- keep your back straight\n- don't let your knees past your toes\n- squeeze your butt when you come up\n- exhale on the way up\n- go to the next exercise only when you complete all the repetitions of this one";
                     textView.setText(text3);
                     break;
                 case ("jj"):

@@ -4,14 +4,18 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -41,8 +45,10 @@ public class WorkoutActivity extends AppCompatActivity {
     public static int pushupsMultiplier;
     public static int chinupsMultiplier;
 
-    int tappedCircle;
+
+    public static int tappedCircle;
     Intent intent6;
+
 
 
     public void onSquatClick (View view){
@@ -86,36 +92,67 @@ public class WorkoutActivity extends AppCompatActivity {
         }
     }
 
-    public void setTitle(String title){
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        TextView textView = new TextView(this);
-        textView.setText(title);
-        textView.setTextSize(20);
-        textView.setTypeface(null, Typeface.BOLD);
-        textView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        textView.setGravity(Gravity.CENTER);
-        textView.setTextColor(getResources().getColor(R.color.titleColor));
-        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(textView);
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();    //Call the back button's method
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
+    public void setTitle(String title){
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setLogo(R.mipmap.ic_launcher); //@drawable/on_day_icon
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.back_arrow);
 
+        View view = getLayoutInflater().inflate(R.layout.action_bar, null);
+        ActionBar.LayoutParams params = new ActionBar.LayoutParams(
+                ActionBar.LayoutParams.WRAP_CONTENT,
+                ActionBar.LayoutParams.MATCH_PARENT,
+                Gravity.CENTER);
 
+        TextView Title = (TextView) view.findViewById(R.id.actionbar_title);
+        Title.setText(title);
+
+        getSupportActionBar().setCustomView(view,params);
+        getSupportActionBar().setDisplayShowCustomEnabled(true); //show custom title
+        getSupportActionBar().setDisplayShowTitleEnabled(false); //hide the default title
+        Title.setTextSize(20);
+        Title.setTextColor(getResources().getColor(R.color.titleColor));
+    }
+
+    //a to reši problem 0k? mogoče gre super.onDestroy na konc metode?
+    /*@Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Intent intent13 = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent13);
+    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.workout);
 
+        //Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713
+        //Real AdMob App ID: ca-app-pub-3137351105878660~5901616023
+
         AdView adView;
-        MobileAds.initialize(this, "ca-app-pub-3137351105878660~5901616023"); //replace with real appID, spremen bannerID(iz admob ad unit) v xmlu, in v manifestu
+        MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713"); //replace with real appID, spremen bannerID(iz admob ad unit) v xmlu, in v manifestu
         adView = (AdView)findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);
 
+
+        //tappedCircle = 99;
         Intent intetnt = getIntent();
-        tappedCircle = intetnt.getIntExtra("tappedCircle", 0);
+        tappedCircle = intetnt.getIntExtra("tappedCircle", 99);
+
+
+
 
 
         if (MainActivity.modeP == 1) {
@@ -173,6 +210,13 @@ public class WorkoutActivity extends AppCompatActivity {
             pushupsAmount = restPushupsReps;
             chinupsAmount = restChinupReps;
         }
+
+        if(squatsAmount==0){
+            Toast.makeText(this, "There was an error.\nEverything is fine.", Toast.LENGTH_LONG).show();
+            Intent intent9 = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent9);
+        }
+
 
 
 

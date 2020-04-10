@@ -59,6 +59,18 @@
             app:layout_constraintTop_toTopOf="@+id/guideline1"
             app:layout_constraintVertical_bias="0.481" />
 
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="(Click me)"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/chinupButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent" />
+
         <EditText
             android:id="@+id/chinupsAmountEditText"
             android:layout_width="84dp"

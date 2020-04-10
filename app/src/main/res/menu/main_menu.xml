@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group>
+
+        <item
+            android:id="@+id/reset"
+            android:icon="@drawable/reset_icon"
+            android:title="Reset App" />
+        <item
+            android:id="@+id/reminder"
+            android:icon="@drawable/reminder_icon"
+            android:title="Set Daily Reminder" />
+        <item
+            android:id="@+id/on_day"
+            android:icon="@drawable/on_day_icon"
+            android:title="Set Current Day" />
+        <item
+            android:id="@+id/remove_ads"
+            android:icon="@drawable/remove_ads_icon"
+            android:title="Remove Ads" />
+        <item
+            android:id="@+id/review"
+            android:icon="@drawable/star_icon"
+            android:title="Leave a Review" />
+
+
+    </group>
+
+
+
+</menu>

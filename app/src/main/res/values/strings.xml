@@ -3,4 +3,9 @@
     <string name="warmup">Warmup</string>
     <string name="workout">Workout</string>
     <string name="stretch">Stretch!</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+
 </resources>

@@ -2,6 +2,7 @@ package com.niknovak.sevenweekmurphworkoutchallenge;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -24,7 +25,11 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        //do nothing
+
+        Intent a = new Intent(Intent.ACTION_MAIN);
+        a.addCategory(Intent.CATEGORY_HOME);
+        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(a);
     }
 
     public void setTitle(String title){
@@ -93,7 +98,8 @@ public class LoginActivity extends AppCompatActivity {
                 MainActivity.intent2 = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(MainActivity.intent2);
             }
-        }
+        }else
+            Toast.makeText(this, "Please enter a number", Toast.LENGTH_SHORT).show();
     }
 
 

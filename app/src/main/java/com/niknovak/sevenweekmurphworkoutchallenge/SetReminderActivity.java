@@ -5,9 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
@@ -54,12 +60,27 @@ public class SetReminderActivity extends AppCompatActivity {
         startActivity(intent2);
     }
 
+    public void createNotificationChannel(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            CharSequence name = "LemubitReminderChannel";
+            String description = "Channel for reminder";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("noti", name, importance);
+            channel.setDescription(description);
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+
 
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_reminder);
+        createNotificationChannel();
 
         setTitle("Set Notifications");
 
@@ -93,6 +114,8 @@ public class SetReminderActivity extends AppCompatActivity {
                 pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),100,intent,PendingIntent.FLAG_UPDATE_CURRENT);
                 alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
                 alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,alarmTime,AlarmManager.INTERVAL_DAY,pendingIntent); //2. parameter je time notifikacije in millisec
+
+
                 builder1 = new AlertDialog.Builder(SetReminderActivity.this);
                 builder1.setMessage("Are you sure?")
                         //.setCancelable(true)
@@ -112,7 +135,11 @@ public class SetReminderActivity extends AppCompatActivity {
                 AlertDialog alertDialog = builder1.create();
                 alertDialog.show();
 
+
             }
         });
+
+
+
     }
 }

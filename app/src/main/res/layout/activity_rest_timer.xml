@@ -32,6 +32,16 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="495dp"
+            android:layout_height="86dp"
+            app:layout_constraintEnd_toEndOf="@+id/imageButton51"
+            app:layout_constraintHorizontal_bias="0.505"
+            app:layout_constraintStart_toStartOf="@+id/imageButton51"
+            app:layout_constraintTop_toBottomOf="@+id/adView"
+            app:srcCompat="@drawable/skiprest" />
+
         <ImageButton
             android:id="@+id/imageButton51"
             android:layout_width="0dp"
@@ -44,6 +54,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@drawable/skiprest" />
 
+        <!--REAL ads:adUnitId="ca-app-pub-3137351105878660/7921274709" -->
+
         <com.google.android.gms.ads.AdView
             xmlns:ads="http://schemas.android.com/apk/res-auto"
             android:id="@+id/adView"
@@ -52,7 +64,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             ads:adSize="BANNER"
-            ads:adUnitId="ca-app-pub-3137351105878660/7921274709"
+            ads:adUnitId="ca-app-pub-3940256099942544/6300978111"
             ads:layout_constraintBottom_toTopOf="@+id/imageButton51"
             ads:layout_constraintEnd_toEndOf="parent"
             ads:layout_constraintHorizontal_bias="0.0"

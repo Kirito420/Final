@@ -15,8 +15,6 @@ import androidx.core.app.NotificationCompat;
 public class Notification_reciever extends BroadcastReceiver {
 
 
-
-
     @Override
     public void onReceive(Context context, Intent intent) {
 
@@ -26,7 +24,7 @@ public class Notification_reciever extends BroadcastReceiver {
         repeating_intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(context,100,repeating_intent,PendingIntent.FLAG_UPDATE_CURRENT);
         //build the Notification
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "noti builder")
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "noti")
                 .setContentIntent(pendingIntent)
                 //notification icon
                 .setSmallIcon(R.mipmap.ic_launcher)
@@ -45,6 +43,8 @@ public class Notification_reciever extends BroadcastReceiver {
             //notificationManager.notify(0 /* Request Code */, builder.build());
         }
         notificationManager.notify(100,builder.build());
+
+        //notifyAsPackage("targetPackage", "tag", 100, builder);
     }
 }
 
